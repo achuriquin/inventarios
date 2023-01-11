@@ -1,4 +1,4 @@
-import 'package:inventarios/infrastructure/entity_manager/entipo_empleados.dart';
+import 'package:inventarios/infrastructure/entity_manager/entipo_empleado.dart';
 import 'package:flutter/material.dart';
 class frmManTipoEmpleado extends StatefulWidget{
   State<frmManTipoEmpleado> createState() => _frmManTipoEmpleado();

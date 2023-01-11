@@ -1,5 +1,8 @@
+import 'package:sql_conn/sql_conn.dart';
+
 import 'conexion.dart';
 import 'package:inventarios/domain/entities/log_usuarios.dart';
+
 
 class conLog_usuarios {
   conexion con= conexion();
@@ -23,4 +26,13 @@ class conLog_usuarios {
     con.write(
       "delete from tipo_usuarios where codigo='${dato.Codigo}'");
   }
+  bool  selection(log_Usuarios dato){
+      var res = SqlConn.readData("SELECT * FROM usuarios WHERE usuario ='${dato.Usuario}' AND contraseña='${dato.Contrasenia}'");
+      bool ex = false;
+      if(res==true){
+        ex=true;
+      }
+      return ex;
+  }
+     
 }

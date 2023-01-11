@@ -1,8 +1,13 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:inventarios/infrastructure/controllers/conexion.dart';
-import 'package:inventarios/infrastructure/entity_manager/entipo_usuario.dart';
+import 'package:inventarios/application/use_cases/frmManTipoEmpleado.dart';
+import 'package:inventarios/application/use_cases/frmPrincipal.dart';
+import 'package:inventarios/application/use_cases/frm_registro.dart';
+import 'package:inventarios/application/widgets/home_page.dart';
+import 'package:inventarios/infrastructure/entity_manager/enlog_usuario.dart';
+import 'package:sql_conn/sql_conn.dart';
 
 class LoginPage extends StatefulWidget{
   const LoginPage({Key?  key}):super(key: key);
@@ -14,7 +19,7 @@ final txtusuTU = TextEditingController();
 final txtconTU = TextEditingController();
 
 class _LoginpageState extends State<LoginPage>{
-enTipo_usuario cn = enTipo_usuario();
+enLog_usuarios cn = enLog_usuarios();
 
   bool isRememberTapped = false;
   @override
@@ -62,18 +67,19 @@ enTipo_usuario cn = enTipo_usuario();
                     ),
                     SizedBox(height: 25.h,),
                     Container(
+                      padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                           color: Colors.white.withOpacity(0.1),
                       ),
                       child:  TextField(
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xffffffff),
                         fontWeight: FontWeight.w400,
                         fontSize: 18,
                         ),
-                        controller: txtconTU,
-                        decoration: InputDecoration(
+                        controller: txtusuTU,
+                        decoration: const InputDecoration(
                           hintText: "  Usuario",
                           hintStyle: TextStyle(color: Colors.grey,fontSize: 18.0),
                         ),
@@ -93,19 +99,20 @@ enTipo_usuario cn = enTipo_usuario();
                     ),
                     SizedBox(height: 25.h,),
                     Container(
+                      padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                           color: Colors.white.withOpacity(0.1),
                       ),
                       child:  TextField(
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xffffffff),
                         fontWeight: FontWeight.w400,
                         fontSize: 18,
                         ),
                         obscureText: true,
                         controller: txtconTU,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: "   Contraseña",                       
                           hintStyle: TextStyle(color: Colors.grey,fontSize: 18.0),
                           
@@ -133,7 +140,11 @@ enTipo_usuario cn = enTipo_usuario();
                             color: Colors.transparent,
                             child: InkWell(
                               borderRadius: BorderRadius.circular(16),
-                              onTap: () =>cn.selectE(),
+  //funcion de reconocimiento de usuario y contraseña
+                              onTap: () {
+                                comprobar();
+                               // Get.to(()=>const HomePage(),transition: Transition.downToUp);
+                              },
                               child: Ink(
                                 decoration: BoxDecoration(
                                   color: const Color(0xff4A80F0),
@@ -151,11 +162,109 @@ enTipo_usuario cn = enTipo_usuario();
                       ),
                       
                     ),
+                      Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        height: 87.h,
+                        decoration: const BoxDecoration(
+                          color: Colors.black,
+                          gradient: LinearGradient(
+                            stops: [0,1],
+                            colors: [
+                              Color(0xff121421),
+                              Colors.transparent,
+                            ],
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
+                          ),
+                        ),
+                        child: Center(
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(16),
+  //ir a registro de nuevo usuario
+                              onTap: () {
+                                Get.to(()=>const RegisterPage(),transition: Transition.downToUp);
+                                
+                              },
+                              child: Ink(
+                                decoration: BoxDecoration(
+                                  color: const Color(0xff4A80F0),
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                child: Container(
+                                  height: 56.h,
+                                  width: 319.w,
+                                  child: Center(child: Text("Registrar",style: TextStyle(fontSize: 16.w, fontWeight: FontWeight.bold, color: Colors.white),)),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      
+                    ),
+                   Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        height: 87.h,
+                        decoration: const BoxDecoration(
+                          color: Colors.black,
+                          gradient: LinearGradient(
+                            stops: [0,1],
+                            colors: [
+                              Color(0xff121421),
+                              Colors.transparent,
+                            ],
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
+                          ),
+                        ),
+                        child: Center(
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(16),
+  //funcion de reconocimiento de usuario y contraseña
+                              onTap: () {
+                                Get.to(()=>frmPrincipal(),transition: Transition.downToUp);
+                              },
+                              child: Ink(
+                                decoration: BoxDecoration(
+                                  color: const Color(0xff4A80F0),
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                child: Container(
+                                  height: 56.h,
+                                  width: 319.w,
+                                  child: Center(child: Text("Invitado",style: TextStyle(fontSize: 16.w, fontWeight: FontWeight.bold, color: Colors.white),)),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      
+                    ), 
               ],
             ),
           ],
         ),
       ),
     );
+  }
+  
+  void comprobar() async{
+    //var res= await
+    //SqlConn.readData("SELECT * FROM usuarios WHERE usuario ='${txtusuTU.text}' AND contraseña='${txtconTU.text}'");
+    
+    //if(res=true){
+    if(cn.selE(txtusuTU.text, txtconTU.text)){
+      Get.to(()=>const HomePage(),transition: Transition.downToUp);
+    }else{
+      Get.to(()=>const RegisterPage(),transition: Transition.downToUp);
+    }
+    await SqlConn.disconnect();
   }
 }

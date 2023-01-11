@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:sql_conn/sql_conn.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +26,7 @@ class conexion {
     connect();
   }
   Future<void> read(String qery) async {
-    var res = await SqlConn.readData(qery);
+        var res = await SqlConn.readData(qery);    
     debugPrint(res.toString());
   }
 
