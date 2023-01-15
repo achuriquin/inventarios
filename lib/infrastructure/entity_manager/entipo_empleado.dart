@@ -6,8 +6,8 @@ class entipo_empleados{
   entipo_empleados(){
     ec=contipo_empleado();
   }
-  void selectE(){
-    ec.select();
+  void selectE(String condicion, List<dynamic> retorno){
+    ec.select(condicion,retorno);
   }
   void insertE(String codigo, String nombre){
     ec.insert(tipo_empleado(codigo, nombre));

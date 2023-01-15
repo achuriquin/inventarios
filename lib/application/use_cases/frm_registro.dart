@@ -1,9 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:inventarios/application/use_cases/frmPrincipal.dart';
-import 'package:inventarios/application/widgets/home_page.dart';
-import 'package:inventarios/application/widgets/loguin_card.dart';
+
+import 'package:inventarios/application/use_cases/frm_home.dart';
+import 'package:inventarios/application/use_cases/frm_login.dart';
 import 'package:inventarios/infrastructure/entity_manager/enlog_usuario.dart';
 import 'package:sql_conn/sql_conn.dart';
 
@@ -17,7 +19,8 @@ class RegisterPage extends StatefulWidget {
 final txtusuTU = TextEditingController();
 final txtconTU = TextEditingController();
 final txtnomTU = TextEditingController();
-List<String> tipo_usuario = <String>["Administrador", "Usuario", "Invitado"];
+List<dynamic> _date=[];
+List<String> tipo_usuario = <String>["Administrador", "Usuario"];
 String dropdownValue = 'Invitado';
 
 class _RegisterPageState extends State<RegisterPage> {
@@ -170,9 +173,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 //////////////////////////////////////////////////////
 
                 DropdownButtonFormField(
-                  borderRadius:BorderRadius.circular(10) ,
+                  borderRadius: BorderRadius.circular(10),
                   decoration: InputDecoration(
-                    
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       //<-- SEE HERE
@@ -209,9 +211,9 @@ class _RegisterPageState extends State<RegisterPage> {
 
                 ////////////////////////////////////////////////////
                 SizedBox(
-                      //separador de elementos
-                    height: 20.h,
-                  ),
+                  //separador de elementos
+                  height: 20.h,
+                ),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
@@ -235,9 +237,9 @@ class _RegisterPageState extends State<RegisterPage> {
                           borderRadius: BorderRadius.circular(16),
                           //funcion de reconocimiento de usuario y contraseña
                           onTap: () {
-                            cn.insertE("usu00004", "tus00001", txtnomTU.text,
-                                txtusuTU.text, txtconTU.text);
-                          },
+                            registrar();
+                            _showMyDialog();
+                            },
                           child: Ink(
                             decoration: BoxDecoration(
                               color: const Color(0xff4A80F0),
@@ -316,4 +318,55 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
+
+  void registrar() async {
+    var res = await SqlConn.readData("select TOP 1 * from usuarios ORDER BY codigo DESC");             
+    
+    _date=jsonDecode(res.toString());
+  int num =0;
+  String txt="";
+  txt=_date[num]["codigo"];
+  
+  int cod=int.parse(txt.substring(3));
+    cod++;
+  String txt1="usu$cod";
+
+    cn.insertE(txt1, "tus10002", txtnomTU.text, txtusuTU.text, txtconTU.text);
+    
+    
+  }
+  Future<void> _showMyDialog() async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Exito'),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: const <Widget>[
+              Text('Usuario creado con exito'),
+              
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('Aceptar'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            child: const Text('Iniciar Secion'),
+            onPressed: () {
+              Get.to(LoginPage());
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+  
 }

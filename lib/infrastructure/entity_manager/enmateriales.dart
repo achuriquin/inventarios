@@ -1,13 +1,13 @@
 import 'package:inventarios/domain/entities/materiales.dart';
-import 'package:inventarios/infrastructure/controllers/conMateriales.dart';
+import 'package:inventarios/infrastructure/controllers/conmateriales.dart';
 
 class enMateriales{
   conMateriales ec =conMateriales();
   enMateriales(){
     ec=conMateriales();
   }
-  void selectE(){
-    ec.select();
+  void selectE(String condicion, List<dynamic> retorno){
+    ec.select(condicion,retorno);
   }
   void insertE(String codigo, String cotipo, String descripcion, String medida, String precio, String stock){
     ec.insert(Materiales(codigo, cotipo, descripcion, medida, precio, stock));

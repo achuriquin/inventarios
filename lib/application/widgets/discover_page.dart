@@ -7,7 +7,8 @@ import 'package:inventarios/application/widgets/discover_small_card.dart';
 import 'package:inventarios/application/widgets/icons.dart';
 import 'package:inventarios/application/widgets/svg_asset.dart';
 import 'package:inventarios/application/widgets/category_boxes.dart';
-import 'detail_page.dart';
+import '../use_cases/frm_entrada_materiales.dart';
+import 'package:inventarios/application/use_cases/frm_agregar_material.dart';
 
 class DiscoverPage extends StatefulWidget{
   const DiscoverPage ({Key? key}) :super(key: key);
@@ -65,19 +66,23 @@ class _DiscoverPageState extends State<DiscoverPage>{
                     width: 28.w,
                   ),
                   CategoryBoxes(
-                    text: "Equipo de protección",
+                    text: "Agregar materiales",
+                    onPressed: (value) =>agregarMateriales(),
+                  ),
+                  CategoryBoxes(
+                    text: "Ver todos los materiales",
                     onPressed: (value) => print(value),
                   ),
                   CategoryBoxes(
-                    text: "Materiales de escritorio",
+                    text: "Proveedores",
                     onPressed: (value) => print(value),
                   ),
                   CategoryBoxes(
-                    text: "Fenolicos y maderas",
+                    text: "Clientes",
                     onPressed: (value) => print(value),
                   ),
                   CategoryBoxes(
-                    text: "Combustibles y lubricantes",
+                    text: "Informes",
                     onPressed: (value) => print(value),
                   ),
                 ],
@@ -183,6 +188,15 @@ class _DiscoverPageState extends State<DiscoverPage>{
                       width: 24.w,
                     ),
                   ),
+                  DiscoverSmallCard(
+                    onTap: (){},
+                    title: "Aceros y     fierros",
+                    icon: SvgAsset(
+                      assetName: AssetName.heart,
+                      heigth: 24.w,
+                      width: 24.w,
+                    ),
+                  ),
                 ],
 
               ),
@@ -203,5 +217,8 @@ class _DiscoverPageState extends State<DiscoverPage>{
   }
   void onSearchIconTapped(){
 //poner cosas aqupi en el futuro
+  }
+  void agregarMateriales(){
+    Get.to(()=> Agregar_material(),transition: Transition.rightToLeft);
   }
 }

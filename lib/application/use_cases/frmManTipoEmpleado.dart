@@ -31,7 +31,7 @@ class _frmManTipoEmpleado extends State<frmManTipoEmpleado>{
               child: const Text("Elimina"),
               ),
               ElevatedButton(
-                onPressed: () =>cn.selectE(), 
+                onPressed: () => null, 
                 child: const Text("Listar"),
                 ),
         ],

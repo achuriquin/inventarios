@@ -1,13 +1,13 @@
 import 'package:inventarios/domain/entities/tipo_usuario.dart';
 import 'package:inventarios/infrastructure/controllers/contipo_usuario.dart';
 
-class enTipo_usuario {
-  conTipo_usuario ec = conTipo_usuario(); 
-  enTipo_usuario(){
-    ec=conTipo_usuario();
+class entipo_usuario {
+  Contipo_usuario ec = Contipo_usuario(); 
+  entipo_usuario(){
+    ec=Contipo_usuario();
   }
-  void selectE(){
-    ec.select();
+  void selectE(String condicion, List<dynamic> retorno){
+    ec.select(condicion,retorno);
   }
   void insertE(String codigo, String nombre, String descripcion){
     ec.insert(tipo_usuario(codigo, nombre, descripcion));

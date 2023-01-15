@@ -6,8 +6,8 @@ class contipo_empleado{
   contipo_empleado(){
     con = conexion();
   }
-  void select(){
-    con.read("select * from tipo_empleados");
+  void select(String condicion, List<dynamic> retorno){
+    con.read(condicion,retorno);
   }
 
   void insert(tipo_empleado dato){

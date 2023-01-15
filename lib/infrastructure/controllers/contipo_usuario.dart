@@ -1,13 +1,13 @@
 import 'package:inventarios/domain/entities/tipo_usuario.dart';
 import 'conexion.dart';
 
-class conTipo_usuario{
+class Contipo_usuario{
   conexion con= conexion();
-  conTipo_usuario(){
+  ConTipo_usuario(){
     con = conexion();
 }
-void select(){
-    con.read("select * from tipo_usuarios");
+  void select(String condicion, List<dynamic> retorno){
+    con.read(condicion,retorno);
   }
 
   void insert(tipo_usuario dato){

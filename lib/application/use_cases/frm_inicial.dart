@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inventarios/application/use_cases/frm_registro.dart';
-import 'package:inventarios/application/widgets/loguin_card.dart';
+import 'package:inventarios/application/use_cases/frm_login.dart';
 
 class frmInicial extends StatefulWidget{
   const frmInicial({Key? key}):super(key: key);

@@ -41,6 +41,10 @@ dependencies:
   get: ^4.6.5
   flutter_screenutil: ^5.6.0
   flutter_svg: ^1.1.6
+  flutter_native_splash: ^2.2.16
+flutter_native_splash:
+  image: assets/background1.png
+  color: "#FFFFFF"
 
 dev_dependencies:
   flutter_test:

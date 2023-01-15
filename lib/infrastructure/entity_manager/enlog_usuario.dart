@@ -6,8 +6,8 @@ class enLog_usuarios{
   enLog_usuarios(){
     ec=conLog_usuarios();
   }
-  void selectE(){
-    ec.select();
+  void selectE(String condicion, List<dynamic> retorno){
+    ec.select(condicion,retorno);
   }
   void insertE(String codigo, String codtipo, String nombre, String usuario, String contrasenia){
     ec.insert(log_Usuarios(codigo, codtipo, nombre, usuario, contrasenia));
@@ -21,4 +21,5 @@ class enLog_usuarios{
   bool selE(String usuario, String contrasenia){
     return ec.selection(log_Usuarios("", "", "", usuario, contrasenia));
   }
+  
 }

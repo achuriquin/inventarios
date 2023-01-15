@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import 'application/use_cases/frmPrincipal.dart';
+
 import 'package:inventarios/application/use_cases/frm_inicial.dart';
-import 'package:inventarios/application/widgets/home_page.dart';
+import 'package:inventarios/application/use_cases/frm_home.dart';
 
 //ejecutar en la terminal "flutter pub add get"  es una dependencia que permite el uso de comandos abreviados 
 //ejecutar en la terminal "flutter pub add flutter_screenutil" es una dependencia que permite la muestra de objetos en pantalla con multiples resoluciones

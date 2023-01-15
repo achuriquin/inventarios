@@ -5,9 +5,9 @@ class conMateriales{
   conexion con= conexion();
   conMateriales(){
     con = conexion();
-}
-void select(){
-    con.read("select * from materiales");
+  }
+  void select(String condicion, List<dynamic> retorno){
+    con.read(condicion,retorno);
   }
 
   void insert(Materiales dato){
